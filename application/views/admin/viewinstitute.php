@@ -25,7 +25,6 @@
 									<th>Institute Name</th>
 									<th>phaseyear</th>
 									<th>phaseMonth</th>
-									
 									<th>Date</th>
 									<th>status</th>
 									<th>Action</th>
@@ -37,19 +36,14 @@
                                         $i = 1;
                                         foreach ($menu as $key) { ?>
 									<tr>
-										<td><?php echo $i;
-                                                    $i++; ?></td>
-										<td><?php echo $key->instituteName; ?></td>
-									
-												<td><?php echo $key->phaseYear; ?></td>
-												<td><?php echo $key->phaseMonth; ?></td>
-												
-										<td><?php $source = $key->createdAt;
+										<td><?php echo $i; $i++; ?></td>
+                                    <td><?php echo $key->instituteName; ?></td>
+									<td><?php echo $key->phaseYear; ?></td>
+									<td><?php echo $key->phaseMonth; ?></td>
+									<td><?php $source = $key->createdAt;
 												$date = new DateTime($source);
-												echo $date->format('d.m.Y');
-																							?></td>
-										
-
+												echo $date->format('d.m.Y');?></td>
+																							
 										<td><?php if ($key->status == 0) { ?><a
 												href="<?php echo base_url('admin/changeInstituteStatus/').$key->id; ?>"><i
 													class="fas fa-times text-danger"
@@ -57,9 +51,7 @@
 												href="<?php echo base_url('admin/changeInstituteStatus/').$key->id; ?>"><i
 													class="fas fa-check text-success"
 													style="font-size:22px;"></i></a><?php } ?></td>
-
-
-										<td><a href="<?php $action='edit';
+                                             <td><a href="<?php $action='edit';
 										echo base_url('admin/institute/').$action.'/'.$key->id; ?>"><i
 													class="fas fa-edit"></i></a>
 											<a id="<?php echo $key->id; ?>" value="<?php echo $key->id;?>"

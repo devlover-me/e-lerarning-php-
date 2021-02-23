@@ -10,8 +10,7 @@
 							</div>
 							<div class="col-md-6">
 								<a class="btn btn-warning" href="<?php $action='add';
-								 echo base_url('admin/Course/'.$action); ?>"
-									style="float: right;">Add Course</a>
+								 echo base_url('admin/Course/'.$action); ?>" style="float: right;">Add Course</a>
 							</div>
 						</div>
 
@@ -23,9 +22,7 @@
 								<thead class="">
 									<th>S.no</th>
 									<th>Course Name</th>
-								
 									<th>course Fee</th>
-									
 									<th>Date</th>
 									<th>status</th>
 									<th>Action</th>
@@ -37,18 +34,11 @@
                                         $i = 1;
                                         foreach ($menu as $key) { ?>
 									<tr>
-										<td><?php echo $i;
-                                                    $i++; ?></td>
+										<td><?php echo $i; $i++; ?></td>
 										<td><?php echo $key->courseName; ?></td>
-									
-												
-												<td><?php echo $key->courseFee; ?></td>
-												
+										<td><?php echo $key->courseFee; ?></td>
 										<td><?php $source = $key->createdAt;
-												$date = new DateTime($source);
-												echo $date->format('d.m.Y');
-																							?></td>
-										
+									$date = new DateTime($source);echo $date->format('d.m.Y');?></td>
 
 										<td><?php if ($key->status == 0) { ?><a
 												href="<?php echo base_url('admin/changeCourseStatus/').$key->id; ?>"><i
@@ -58,13 +48,10 @@
 													class="fas fa-check text-success"
 													style="font-size:22px;"></i></a><?php } ?></td>
 
-
 										<td><a href="<?php $action='edit';
-										echo base_url('admin/Course/').$action.'/'.$key->id; ?>"><i
-													class="fas fa-edit"></i></a>
+										echo base_url('admin/Course/').$action.'/'.$key->id; ?>"><i class="fas fa-edit"></i></a>
 											<a id="<?php echo $key->id; ?>" value="<?php echo $key->id;?>"
 												onclick="myFunction(this.id)">
-
 												<i style="padding-left:27px;color: red;cursor: pointer;"
 													class="fas fa-trash"></i></a>
 
@@ -100,7 +87,7 @@
 					window.location.href = "<?php echo base_url(); ?>admin/deleteCourse/" + id;
 
 				} else {
-					
+
 				}
 			});
 	}

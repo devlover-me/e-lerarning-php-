@@ -37,29 +37,21 @@
                                         $i = 1;
                                         foreach ($menu as $key) { ?>
 									<tr>
-										<td><?php echo $i;
-                                                    $i++; ?></td>
-										<td><?php echo $key->userName; ?></td>
-									
-												<td><?php echo $key->phone; ?></td>
-												<td><?php echo $key->email; ?></td>
-												
+										<td><?php echo $i; $i++; ?></td>
+                                        <td><?php echo $key->userName; ?></td>
+									    <td><?php echo $key->phone; ?></td>
+										<td><?php echo $key->email; ?></td>
 										<td><?php $source = $key->createdAt;
-												$date = new DateTime($source);
-												echo $date->format('d.m.Y');
-																							?></td>
-										
-
-										<td><?php if ($key->status == 0) { ?><a
+									$date = new DateTime($source);echo $date->format('d.m.Y');	?></td>
+									<td><?php if ($key->status == 0) { ?><a
 												href="<?php echo base_url('admin/changeCenterStatus/').$key->id; ?>"><i
 													class="fas fa-times text-danger"
 													style="font-size: 22px;"></i></a><?php }else{ ?><a
 												href="<?php echo base_url('admin/changeCenterStatus/').$key->id; ?>"><i
 													class="fas fa-check text-success"
-													style="font-size:22px;"></i></a><?php } ?></td>
+													style="font-size:22px;"></i></a><?php } ?></td>	
 
-
-										<td><a href="<?php $action='edit';
+													<td><a href="<?php $action='edit';
 										echo base_url('admin/editCenter/').$action.'/'.$key->id; ?>"><i
 													class="fas fa-edit"></i></a>
 											<a id="<?php echo $key->id; ?>" value="<?php echo $key->id;?>"
@@ -68,8 +60,8 @@
 												<i style="padding-left:27px;color: red;cursor: pointer;"
 													class="fas fa-trash"></i></a>
 
-										</td>
-									</tr>
+										</td>													
+											</tr>
 									<?php }
                                     } else {
                                         echo "No Menus Found";

@@ -120,6 +120,7 @@
 		.butonlogin:hover {
 			background: #1E88E5;
 		}
+
 	</style>
 
 </head>
@@ -128,17 +129,18 @@
 	<section class="background-animation p-0" style="height: 100vh;">
 		<section>
 			<?php if (isset($_SESSION['success'])) { ?>
-				<div class="col-md-12 hiddenalert" style="position: absolute;top: 15px;width: 343px;right: 50px;">
-					<div class="alert <?php echo $_SESSION['success']['status'] == 'true' ? 'alert-success' : 'alert-danger'; ?>  alert-dismissible">
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						<strong><?php echo $_SESSION['success']['msg']; ?></strong>
-					</div>
+			<div class="col-md-12 hiddenalert" style="position: absolute;top: 15px;width: 343px;right: 50px;">
+				<div
+					class="alert <?php echo $_SESSION['success']['status'] == 'true' ? 'alert-success' : 'alert-danger'; ?>  alert-dismissible">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong><?php echo $_SESSION['success']['msg']; ?></strong>
 				</div>
+			</div>
 			<?php }
 			?>
 			<?php echo form_open('auth/adminlogin'); ?>
 			<div class="row">
-                <!-- <h3> Center Login</h3> -->
+				<!-- <h3> Center Login</h3> -->
 				<div class="col-md-6 p-0 d-none d-md-block">
 
 					<img class="image p-0" src="..\assets\images\login\Login.jpg">
@@ -160,22 +162,24 @@
 						</div>
 						<div class="col-md-12">
 							<div class="form-group">
-								<input class="form-control " type="text" autocomplete="disabled" name="username" placeholder="Enter your Username">
+								<input class="form-control " type="text" autocomplete="disabled" name="username"
+									placeholder="Enter your Username">
 							</div>
 						</div>
 						<div class="col-md-12">
 							<div class="form-group">
-								<input class="form-control " type="password" name="password" autocomplete="disabled" placeholder="Enter your password">
+								<input class="form-control " type="password" name="password" autocomplete="disabled"
+									placeholder="Enter your password">
 							</div>
 						</div>
 
-						<div class="col-md-12 text-right my-3" >
+						<div class="col-md-12 text-right my-3">
 							<a href="#">Forgot password?</a>
 						</div>
 
 					</div>
 
-					<div class="col-md-12 mb-4" >
+					<div class="col-md-12 mb-4">
 						<input class="butonlogin mx-auto" type="submit" name="" value="Login">
 					</div>
 					<!-- class="giris" -->
@@ -189,13 +193,14 @@
 	</section>
 
 	<script>
-		$(document).ready(function() {
-			$(function() {
-				setTimeout(function() {
+		$(document).ready(function () {
+			$(function () {
+				setTimeout(function () {
 					$('.hiddenalert').fadeOut('fast');
 				}, 3000);
 			});
 		});
+
 	</script>
 </body>
 

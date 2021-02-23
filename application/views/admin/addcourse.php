@@ -10,7 +10,7 @@
 							</div>
 							<div class="col-md-6">
 								<a class="btn btn-warning" href="<?php $uid=$this->uri->segment(3);
-								echo base_url('admin/viewCourse/').$uid; ?>"
+								    echo base_url('admin/viewCourse/').$uid; ?>"
 									style="float: right;">Cancle</a>
 							</div>
 						</div>
@@ -24,48 +24,34 @@
 
 
 
-					<div class="form-group">
+		           <div class="form-group">
                     <?php 
-
-						   $action=$this->uri->segment(3); 
-						   
-						   if($action=='edit'){
-							$uid=$this->uri->segment(4);
+                          $action=$this->uri->segment(3); 
+						if($action=='edit'){$uid=$this->uri->segment(4);
 				 echo form_open_multipart('admin/saveCourse/'.$action.'/'.$uid);}else{
 					echo form_open_multipart('admin/saveCourse/'.$action);
 				 } ?>
 						
 
-						<div class="form-group">
-						
-							<label for="exampleInputPassword1">Course  Name</label>
+		<div class="form-group">
+						<label for="exampleInputPassword1">Course  Name</label>
 							<input type="text" name="name" class="form-control" id="" value="<?php 
-					 if(form_error('name')){
-							 echo set_value('name');}else{
-								if($action=='edit'){ 
-							 echo $data[0]->courseName;} else{
-								echo set_value('name'); 
-               } } ?>"
-								 required>
-								<?php echo form_error('name','<div class="error" style="color:red;">', '</div>'); ?>
-						</div>
+					 if(form_error('name')){ echo set_value('name');}else{
+						if($action=='edit'){  echo $data[0]->courseName;} else{		
+							echo set_value('name');  } } ?>" required>		
+							
+								
+              <?php echo form_error('name','<div class="error" style="color:red;">', '</div>'); ?>
+		</div>
 						<div class="form-group">
-						
-							<label for="exampleInputPassword1">Course Fee</label>
+						<label for="exampleInputPassword1">Course Fee</label>
 							<input type="text" name="fee" class="form-control" id="" value="<?php 
-					 if(form_error('fee')){
-							 echo set_value('fee');}else{
-								if($action=='edit'){ 
-							 echo $data[0]->courseFee;} else{
-								echo set_value('fee'); 
-               } } ?>"
-								 required>
-								<?php echo form_error('fee','<div class="error" style="color:red;">', '</div>'); ?>
-						</div>
+					 if(form_error('fee')){ echo set_value('fee');}else{
+						if($action=='edit'){echo $data[0]->courseFee;} else{ 		
+							echo set_value('fee');   } } ?>"required>		
+		<?php echo form_error('fee','<div class="error" style="color:red;">', '</div>'); ?>
+</div>
 					
-						
-					
-
 						<input type="hidden" name="id" value="">
 
 						<div class="form-group">
@@ -74,13 +60,12 @@
 
 						<?php echo form_close();  ?>
 					</div>
-				
-
 				</div>
-
-
-				
-			</div>
+				</div>
 		</div>
 	</div>
 </div>
+
+
+				
+			
