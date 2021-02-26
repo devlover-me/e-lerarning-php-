@@ -63,4 +63,17 @@ class AuthModel extends CI_Model
 			return false;
 		}
 	}
+	//=================================student============================
+	public function getStudentPassword($username)
+	{
+		$checkpassword = $this->db->where('userName' ,$username)->get('student');
+		if ($checkpassword->num_rows() > 0) {
+			return $checkpassword->result();
+		} else {
+			return false;
+		}
+	}
+
+
+
 }

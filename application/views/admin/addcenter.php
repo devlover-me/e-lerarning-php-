@@ -26,16 +26,32 @@
                 }
 				 ?>
 
-				<div class="form-group">
-					<label for="exampleInputPassword1">Select Institute *</label>
-					<select name="institute" class="form-control cat" id="cat" required="">
-						<option value="">Select</option>
+					<!-- <div id="list1" class="dropdown-check-list" tabindex="100">
+					<span class="anchor">Select Institute</span>
+					<ul class="institute" name="institute" >
+						<li><input type="checkbox" value="<?php echo $n->id;  ?>" <?php echo set_select('cat', $n->id, False); ?> />
+						<?php  echo $n->instituteName; ?></li>
+					
+					</ul>
+					</div> -->
+
+
+					<ul>
+					<li class="dropdown">
+						<a href="#" data-toggle="dropdown" class="dropdown-toggle">
+						Select Institute<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
 						<?php if(!empty($institute)){ foreach($institute as $n){ ?>
-						<option value="<?php echo $n->id;  ?>" <?php echo set_select('cat', $n->id, False); ?>>
-							<?php  echo $n->instituteName; ?></option>
+						<li><label class="checkbox"><input  type="checkbox" name="institute[]" value="<?php echo $n->id;  ?>" <?php echo set_select('cat', $n->id, False); ?>/><?php  echo $n->instituteName; ?></label></li>
 						<?php } } ?>
-					</select>
-				</div>
+						</ul>
+					</li>
+					</ul>
+				<label>Wallet</lable>
+				<input  type="checkbox" name="wallet[]" value="yes">Yes
+				<input  type="checkbox" name="wallet[]" value="no">No
+
 
 				<div class="form-group">
 

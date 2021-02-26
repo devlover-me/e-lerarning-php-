@@ -22,12 +22,20 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
               <a class="dropdown-item" href="#">admin</a>
-              <a class="dropdown-item" href="<?php echo site_url('auth/changeadminpassword'); ?>" data-toggle="modal"
+              <a class="dropdown-item" href="<?php echo site_url('auth/change_center_password'); ?>" data-toggle="modal"
 										data-target="#exampleModal">change password</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="<?php echo base_url('auth/logout') ?>" >Log out</a>
+              <a class="dropdown-item" href="<?php echo base_url('auth/center_logout') ?>" >Log out</a>
             </div>
           </li>
+      <?php if($status=='1'){?>
+          <li class="nav-item   ">
+          <a class="nav-link" href="<?php echo base_url('center/wallet'); ?>">
+            <i class="material-icons">dashboard</i>
+            <p>Dashboard</p>
+          </a>
+          </li>
+      <?php }?>
         </ul>
       </div>
     </div>

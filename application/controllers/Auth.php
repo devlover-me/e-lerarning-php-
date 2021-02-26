@@ -11,6 +11,7 @@ class Auth extends CI_Controller
 		$this->load->library('session');
 		$this->load->library('form_validation');
 		$this->load->library('encryption');
+		$this->load->view('common/dashboard-layout/head');
 		//$this->load->helper('message');
 	}
 
@@ -40,7 +41,9 @@ class Auth extends CI_Controller
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
          	$admindata = $this->AuthModel->getAdmindata($username);
-
+            //    print_r($admindata);
+			// exit;
+			   if($admindata[0]->userType=='admin'){
 		if ($admindata) {
 				$decPassword = $this->encryption->decrypt($admindata[0]->password);
             	if ($password == $decPassword) {
@@ -65,7 +68,7 @@ class Auth extends CI_Controller
 						'name' => '',
 						'logged_in' => FALSE
 					);
-					$response = array('status' => 'false', 'msg' => 'failed');
+					$response = array('status' => 'false', 'msg' => 'password is incorrect');
 					$this->session->set_flashdata('toaster', $response);
 					return redirect('auth/admin');
 				}
@@ -76,13 +79,18 @@ class Auth extends CI_Controller
 					'name' => '',
 					'logged_in' => FALSE
 				);
-				$response = array('status' => 'false', 'msg' => 'failed');
-				$this->session->set_flashdata('toaster', $response);
+				$response = array('status' => 'false', 'msg' => 'Invalid userName');
+				$this->session->set_flashdata('savemenu', $response);
 				return redirect('auth/admin');
 			}
+		}else{
+			$response = array('status' => 'false', 'msg' => 'you are not a authorised person to login as admin');
+				$this->session->set_flashdata('savemenu', $response);
+				return redirect('auth/admin');
+		}
 		} else {
 			$response = array('status' => 'false', 'msg' => validation_errors());
-			$this->session->set_flashdata('toaster', $response);
+			$this->session->set_flashdata('savemenu', $response);
 			return redirect('auth/admin');
 		}
 	}
@@ -111,16 +119,16 @@ class Auth extends CI_Controller
 				$encPassword = $this->encryption->encrypt($password);
 				$updatepass = $this->AuthModel->updatePassword($encPassword, $uid);
 				if ($updatepass) {
-					$response = array('status' => 'true', 'msg' => 'change');
+					$response = array('status' => 'true', 'msg' => ' passwordchange');
 					$this->session->set_flashdata('changepass', $response);
 					return redirect('admin/index');
 				} else {
-					$response = array('status' => 'false', 'msg' => 'not change');
+					$response = array('status' => 'false', 'msg' => ' passwordnot change');
 					$this->session->set_flashdata('changepass', $response);
 					return redirect('admin/index');
 				}
 			} else {
-				$response = array('status' => 'false', 'msg' => 'failed');
+				$response = array('status' => 'false', 'msg' => 'password does not match');
 				$this->session->set_flashdata('changepass', $response);
 				return redirect('admin/index');
 			}
@@ -160,7 +168,7 @@ class Auth extends CI_Controller
 	{
 		$this->load->view('center/centerlogin');
 	}
-	public function centerlogin()
+	public function center_login()
 	{
 		$this->form_validation->set_rules('username', 'Username', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required');
@@ -174,21 +182,23 @@ class Auth extends CI_Controller
 
 
 			$centerdata = $this->AuthModel->getCenterdata($username);
-
+			// print_r($centerdata);
+			// exit;
+			   if($centerdata[0]->userType=='center'){
 
 			if ($centerdata) {
 				$decPassword = $this->encryption->decrypt($centerdata[0]->password);
 
 				if ($password == $decPassword) {
 					foreach ($centerdata as $keydata) {
-						$name  = $keydata->userName;
+						$wallet  = $keydata->wallet;
 						$id = $keydata->userId;
 					}
 
 
 					$sessionArray =  array(
 						'id' => $id,
-						'name' => $name,
+						'wallet' =>$wallet,
 						'logged_in' => TRUE
 					);
 
@@ -202,7 +212,7 @@ class Auth extends CI_Controller
 						'name' => '',
 						'logged_in' => FALSE
 					);
-					$response = array('status' => 'false', 'msg' => 'failed');
+					$response = array('status' => 'false', 'msg' => 'Password does not match ');
 					$this->session->set_flashdata('toaster', $response);
 					return redirect('auth/center1');
 				}
@@ -213,14 +223,20 @@ class Auth extends CI_Controller
 					'name' => '',
 					'logged_in' => FALSE
 				);
-				$response = array('status' => 'false', 'msg' => 'failed');
+				$response = array('status' => 'false', 'msg' => 'invalid user');
 				$this->session->set_flashdata('toaster', $response);
-				return redirect('auth/center2');
+				return redirect('auth/center');
 			}
+		}else{
+			$response = array('status' => 'false', 'msg' => 'You are not authorised to login as a center');
+			$this->session->set_flashdata('toaster', $response);
+			return redirect('auth/center');
+
+		}
 		} else {
 			$response = array('status' => 'false', 'msg' => validation_errors());
 			$this->session->set_flashdata('toaster', $response);
-			return redirect('auth/center3');
+			return redirect('auth/center');
 		}
 	}
 
@@ -243,11 +259,11 @@ class Auth extends CI_Controller
 				$encPassword = $this->encryption->encrypt($password);
 				$updatepass = $this->AuthModel->updatePassword($encPassword, $uid);
 				if ($updatepass) {
-					$response = array('status' => 'true', 'msg' => 'change');
+					$response = array('status' => 'true', 'msg' => ' password changed');
 					$this->session->set_flashdata('changepass', $response);
 					return redirect('admin/index');
 				} else {
-					$response = array('status' => 'false', 'msg' => 'not change');
+					$response = array('status' => 'false', 'msg' => ' password does not changed');
 					$this->session->set_flashdata('changepass', $response);
 					return redirect('admin/index');
 				}
@@ -263,24 +279,10 @@ class Auth extends CI_Controller
 
 
 
-	//	change status
-	public function changeCenterStatus($id)
-	{
-		$updatestatus = $this->AdminModel->updateStatus($id);
-		if ($updatestatus) {
-			$response = array('status' => 'true', 'msg' => 'Status Changed');
-			$this->session->set_flashdata('changestatus', $response);
-			return redirect('admin/index');
-		} else {
-			$response = array('status' => 'false', 'msg' => 'Status Not Changed');
-			$this->session->set_flashdata('changestatus', $response);
-			return redirect('admin/index');
-		}
-	}
-
-
+	
+	
 	// logout
-	public function centerlogout()
+	public function center_logout()
 	{
 
 		$this->session->userdata('centerSession')['logged_in'];
@@ -288,4 +290,79 @@ class Auth extends CI_Controller
 		$this->session->sess_destroy();
 		redirect('auth/center');
 	}
+
+//================================================student=======================
+public function student()
+	{
+		$this->load->view('student/studentlogin');
+	}
+	public function student_login()
+	{
+		$this->form_validation->set_rules('username', 'Username', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+
+		if ($this->form_validation->run()) {
+
+			$username = $this->input->post('username');
+			$password = $this->input->post('password');
+
+
+
+
+			$studentdata = $this->AuthModel->getStudentPassword($username);
+			// print_r($studentdata);
+			// exit;
+			   
+
+			if ($studentdata) {
+				$decPassword = $this->encryption->decrypt($studentdata[0]->password);
+
+				if ($password == $decPassword) {
+					foreach ($studentdata as $keydata) {
+						$studentId  = $keydata->studentId;
+						$id = $keydata->userId;
+					}
+
+
+					$sessionArray =  array(
+						'id' => $id,
+						'studentId' =>$studentId,
+						'logged_in' => TRUE
+					);
+
+					$this->session->set_userdata('studentSession', $sessionArray);
+
+					return redirect('student/index');
+				} else {
+
+					$sessionArray =  array(
+						'id' => '',
+						'studentId' => '',
+						'logged_in' => FALSE
+					);
+					$response = array('status' => 'false', 'msg' => 'failed');
+					$this->session->set_flashdata('toaster', $response);
+					return redirect('auth/student1');
+				}
+			} else {
+
+				$sessionArray =  array(
+					'id' => '',
+					'name' => '',
+					'logged_in' => FALSE
+				);
+				$response = array('status' => 'false', 'msg' => 'failed');
+				$this->session->set_flashdata('toaster', $response);
+				return redirect('auth/student2');
+			}
+		
+		} else {
+			$response = array('status' => 'false', 'msg' => validation_errors());
+			$this->session->set_flashdata('toaster', $response);
+			return redirect('auth/student3');
+		}
+	}
+
+	
+
 }

@@ -136,7 +136,7 @@
 				</div>
 			<?php }
 			?>
-			<?php echo form_open('auth/center_login'); ?>
+			<?php echo form_open('auth/student_login'); ?>
 			<div class="row">
                 <!-- <h3> Center Login</h3> -->
 				<div class="col-md-6 p-0 d-none d-md-block">
@@ -170,7 +170,7 @@
 						</div>
 
 						<div class="col-md-12 text-right my-3" >
-							<a href="#" >Forgot password?</a>
+							<a href="#" data-toggle="modal" data-target="#password">Forgot password?</a>
 						</div>
 
 					</div>

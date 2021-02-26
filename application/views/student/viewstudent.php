@@ -1,6 +1,6 @@
 
 
-<div class="content">
+<div class="content" style="padding:56px;">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
@@ -25,16 +25,16 @@
 							<table class="table table-hover" id="sample_1">
 								<thead class="">
 									<th>S.no</th>
+									<th>Image</th>
 									<th>First Name</th>
 									<th>Last Name</th>
 									<th>Batch</th>
 									<th>Course</th>
-									<th>Image</th>
+									
 									<th>Father Name</th>
 									<th>Monther Name</th>
-									<th>Gender</th>
 									<th>aadhar number</th>
-									
+									<th>aadhar number</th>
 									<th>Dob</th>
 									<th>Address</th>
 									<th>Phone</th>
@@ -42,17 +42,16 @@
 									<th>Email</th>
 									<th>Date</th>
 									
-									<th>View Qualification</th>
+									<th>View Application</th>
 									
 
 								</thead>
 								<tbody>
 									<?php
-								     $i = 0;
-
-                                    if (is_array($student) || is_object($student)) {
+									 $i = 0;
+                                    if (is_array($details) || is_object($details)) {
                                        
-                                        foreach ($student as $key) { 
+                                        foreach ($details as $key) { 
 											$i++; ?>
 									<tr>
 										<td><?php echo $i; ?></td>
@@ -72,7 +71,7 @@
 										<td><?php echo $key->postalcode; ?></td>
 										<td><?php $source = $key->createdAt;	$date = new DateTime($source);
 											echo $date->format('d.m.Y');?></td>	
-										<td><button   data-toggle="modal" data-target="#qualificationModal"  class="btn btn-primary"> Click</button></td>
+									<td><button   data-toggle="modal" data-target="#qualificationModal"  class="btn btn-primary"> Click</button></td>
 
 										
 

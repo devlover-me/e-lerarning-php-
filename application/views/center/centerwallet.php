@@ -2,7 +2,7 @@
 	<div class="container-fluid">
 		<div class="row" style="padding-bottom:73px;">
 			<div class="row col-md-8">
-				<i class="fas fa-rupee-sign" style="font-size:46px;"><?php echo $wall[0]->amount ?></i>
+				<i class="fas fa-rupee-sign" style="font-size:46px;"><?php echo $wall[0]->amount?></i>
 			</div>
 
 			<div class="col-md-4">
@@ -46,6 +46,7 @@
 								<td><?php echo $key->transactionFromTo; ?></td>
 								<td><?php echo $key->transactionType; ?></td>
 								<td><?php echo $key->amount; ?></td>
+								
 								<td><?php  	echo $key->updatedAt;?></td>
 							</tr>
 							<tr>

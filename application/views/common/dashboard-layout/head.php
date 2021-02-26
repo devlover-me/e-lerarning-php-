@@ -58,6 +58,17 @@
 	<?php }
   ?>
 
+<?php if (isset($_SESSION['toaster'])) { ?>
+	<div class="col-md-12 hiddenalert"
+		style="position: absolute;top: 15px;width: 343px;right: 50px;  z-index: 1000000;">
+		<div
+			class="alert <?php echo $_SESSION['toaster']['status'] == 'true' ? 'alert-toaster' : 'alert-danger'; ?>  alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			<strong><?php echo $_SESSION['toaster']['msg']; ?></strong>
+		</div>
+	</div>
+	<?php }
+  ?>
 
 
 
@@ -73,12 +84,13 @@
   <title>
     Admin
   </title>
+  <script src="<?php echo base_url('assets/js/core/jquery.min.js');?>"></script>
   <!-- taginput  files  -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="<?php echo base_url('assets\css\bootstrap-tagsinput.css') ?>" />
 <script href="<?php echo base_url('assets\js\plugins\bootstrap-tagsinput.js') ?>" ></script>
 
-<script src="custom_tags_input.js"></script>
+
   <!-- end of taginput -->
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -110,6 +122,7 @@
 	/* margin-left: 118px; */
 	margin-bottom: 41px;
 }
+
   </style>
 <script> 
  $(document).ready(function(){

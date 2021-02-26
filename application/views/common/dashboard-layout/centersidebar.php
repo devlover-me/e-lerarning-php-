@@ -11,6 +11,14 @@
             <p>Dashboard</p>
           </a>
         </li>
+        <li class="nav-item   ">
+          <a class="nav-link" href="<?php echo base_url('center/view_form'); ?>">
+            <i class="material-icons">Center</i>
+            <p>Center</p>
+          </a>
+        </li>
+       
+
        
 
       </ul>

@@ -49,12 +49,14 @@ class Admin extends CI_Controller
 
 	public function saveCenter()
 	{
+		$data = $this->input->post('wallet');
+			
 		$action = $this->uri->segment(3);
         date_default_timezone_set("Asia/Kolkata");
 		$currentTime = date('y-m-d');
 
 		$this->form_validation->set_rules('name', 'Name', 'required');
-		$this->form_validation->set_rules('institute', 'Institute', 'required');
+		//$this->form_validation->set_rules('institute', 'Institute', 'required');
 		$this->form_validation->set_rules('phone', 'Phone', 'required|numeric|callback_check_phone');
 		$this->form_validation->set_rules('email', 'Email', 'required|callback_check_email');
 		$this->form_validation->set_rules('address', 'Address', 'required');
@@ -66,15 +68,21 @@ class Admin extends CI_Controller
 		$this->form_validation->set_rules('dob', 'dob', 'required');
 		if ($this->form_validation->run()) {
 
+			
+
+			$int = $this->input->post('institute');
+			
+		$ids= implode(",",$int);
+		
+
 			$password = $this->input->post('password');
 			$encPassword = $this->encryption->encrypt($password);
-			echo $encPassword;
-			exit;
+			
 			$userdata = array(
 				'userName' => $this->input->post('name'),
 				'phone' =>  $this->input->post('phone'),
 				'email' =>  $this->input->post('email'),
-				'institute' =>  $this->input->post('institute'),
+				'instituteId' =>  $ids,
 				'createdAt' => $currentTime,
 				'status' => '1'
 			);
@@ -87,6 +95,12 @@ class Admin extends CI_Controller
 				'userType' => 'center'
 			);
 
+			if($data[0]=='yes'){
+				$logindata['wallet']='1';
+			}else{
+				$logindata['wallet']='0';
+			}
+			
 			$userInfodata = array(
 				'nameOfDirector' => $this->input->post('nod'),
 				'oraganizationName' =>  $this->input->post('orgName'),
