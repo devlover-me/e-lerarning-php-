@@ -79,9 +79,9 @@ class AdminModel extends CI_Model
 
 	//==================================center===================================	
 
-	public function getCenter()
+	public function getTeacher()
 	{
-		$data = $this->db->order_by('id', 'DESC')->get('user');
+		$data = $this->db->order_by('id', 'DESC')->get('teacher');
 		//updated =convert(varchar(10), getdate(), 102);
 		if ($data->num_rows() > 0) {
 			return $data->result();
@@ -102,38 +102,27 @@ class AdminModel extends CI_Model
 
 
 
-	public function updateCenterStatus($id)
+	public function updateTeacherStatus($id)
 	{
-		$data = $this->db->where('id', $id)->get('user');
+		$data = $this->db->where('id', $id)->get('teacher');
 		$status = $data->row()->status;
 		if ($status == 1) {
-			return $this->db->where('id', $id)->set('status', '0')->update('user');
+			return $this->db->where('id', $id)->set('status', '0')->update('teacher');
 		} else {
-			return $this->db->where('id', $id)->set('status', '1')->update('user');
+			return $this->db->where('id', $id)->set('status', '1')->update('teacher');
 		}
 	}
 
 
 
-	public function saveCenterLog($logindata, $userInfodata, $action, $uid, $userdata)
+	public function saveTeacher( $action, $uid, $userdata)
 	{
 		if ($action == 'add') {
-			$log = $this->db->insert('logins', $logindata);
-			$uInfo = $this->db->insert('userinfo', $userInfodata);
-			if ($log &&  $uInfo) {
-				return true;
-			} else {
-				return false;
-			}
+			$log = $this->db->insert('teacher', $userdata);
+		
 		} else {
-			$user =	$this->db->where('id', $uid)->update("user", $userdata);
-			$log =	$this->db->where('userId', $uid)->update("logins", $logindata);
-			$uInfo = $this->db->where('userId', $uid)->update("userinfo", $userInfodata);
-			if ($user &&  $uInfo && $log) {
-				return true;
-			} else {
-				return false;
-			}
+			$user =	$this->db->where('id', $uid)->update("teacher", $userdata);
+			
 		}
 	}
 
@@ -158,9 +147,9 @@ class AdminModel extends CI_Model
 
 		return  $insert_id;
 	}
-	public function getEditCenter($uid)
+	public function getEditTeacher($uid)
 	{
-		$data = $this->db->where('id', $uid)->get('user');
+		$data = $this->db->where('id', $uid)->get('teacher');
 		if ($data->num_rows() > 0) {
 			return $data->result();
 		} else {
@@ -178,16 +167,11 @@ class AdminModel extends CI_Model
 	}
 
 
-	public function deleteCenter($id)
+	public function deleteTeacher($id)
 	{
 
-		$user =	$this->db->where('id', $id)->delete('user');
-		$log =	$this->db->where('userId', $id)->delete('logins');
-		if ($user && $log) {
-			return true;
-		} else {
-			return false;
-		}
+		$user =	$this->db->where('id', $id)->delete('teacher');
+		
 	}
 
 	public function getCountCenter()
@@ -257,6 +241,138 @@ class AdminModel extends CI_Model
 	{
 		return $this->db->count_all('course');
 	}
+
+
+
+
+
+	//=======================Category==================
+	public function getEditCategory($id)
+	{
+
+		$data = $this->db->where('id', $id)->get('Category');
+		if ($data->num_rows() > 0) {
+			return $data->result();
+		} else {
+			return false;
+		}
+	}
+
+	public function deleteCategory($id)
+	{
+
+		$user =	$this->db->where('id', $id)->delete('Category');
+
+		if ($user) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function getCategory()
+	{
+		$data = $this->db->order_by('id', 'DESC')->get('category');
+		//updated =convert(varchar(10), getdate(), 102);
+		if ($data->num_rows() > 0) {
+			return $data->result();
+		} else {
+			return false;
+		}
+	}
+
+	public function saveCategory($userdata, $action, $id)
+	{
+
+		if ($action == 'edit') {
+
+			return	$this->db->where('id', $id)->update('Category', $userdata);
+		} else {
+			return  $this->db->insert('Category', $userdata);
+		}
+	}
+
+	public function updateCategoryStatus($id)
+	{
+		$data = $this->db->where('id', $id)->get('Category');
+		$status = $data->row()->status;
+		if ($status == 1) {
+			return $this->db->where('id', $id)->set('status', '0')->update('category');
+		} else {
+			return $this->db->where('id', $id)->set('status', '1')->update('category');
+		}
+	}
+
+	public function getCountCategory()
+	{
+		return $this->db->count_all('category');
+	}
+
+
+		//=======================Category==================
+		public function getEditQuestion($id)
+		{
+	
+			$data = $this->db->where('id', $id)->get('quiz');
+			if ($data->num_rows() > 0) {
+				return $data->result();
+			} else {
+				return false;
+			}
+		}
+	
+		public function deleteQuestion($id)
+		{
+	
+			$user =	$this->db->where('id', $id)->delete('quiz');
+	
+			if ($user) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	
+		public function getQuestion()
+		{
+			$data = $this->db->order_by('id', 'DESC')->get('quiz');
+			//updated =convert(varchar(10), getdate(), 102);
+			if ($data->num_rows() > 0) {
+				return $data->result();
+			} else {
+				return false;
+			}
+		}
+	
+		public function saveQuestion($userdata, $action, $id)
+		{
+	
+			if ($action == 'edit') {
+	
+				return	$this->db->where('id', $id)->update('quiz', $userdata);
+			} else {
+				return  $this->db->insert('quiz', $userdata);
+			}
+		}
+	
+		public function updateQuestionStatus($id)
+		{
+			$data = $this->db->where('id', $id)->get('Question');
+			$status = $data->row()->status;
+			if ($status == 1) {
+				return $this->db->where('id', $id)->set('status', '0')->update('quiz');
+			} else {
+				return $this->db->where('id', $id)->set('status', '1')->update('quiz');
+			}
+		}
+	
+		public function getCountQuestion()
+		{
+			return $this->db->count_all('Question');
+		}
+	
+	
+
 	//=========================wallet=================
 	public function updateAmount($trandata, $walletdata, $uid)
 	{

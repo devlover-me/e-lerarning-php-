@@ -23,8 +23,8 @@
 								<thead class="">
 									<th>S.no</th>
 									<th>Institute Name</th>
-									<th>phaseyear</th>
-									<th>phaseMonth</th>
+									<th>address</th>
+									
 									<th>Date</th>
 									<th>status</th>
 									<th>Action</th>
@@ -37,9 +37,9 @@
                                         foreach ($menu as $key) { ?>
 									<tr>
 										<td><?php echo $i; $i++; ?></td>
-                                    <td><?php echo $key->instituteName; ?></td>
-									<td><?php echo $key->phaseYear; ?></td>
-									<td><?php echo $key->phaseMonth; ?></td>
+                                    <td><?php echo $key->name; ?></td>
+									<td><?php echo $key->address; ?></td>
+									<!-- <td><?php echo $key->phaseMonth; ?></td> -->
 									<td><?php $source = $key->createdAt;
 												$date = new DateTime($source);
 												echo $date->format('d.m.Y');?></td>

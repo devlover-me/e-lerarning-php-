@@ -12,9 +12,9 @@
           </a>
         </li>
         <li class="nav-item   ">
-          <a class="nav-link" href="<?php echo base_url('admin/viewCenter'); ?>">
-            <i class="material-icons">Center</i>
-            <p>Center</p>
+          <a class="nav-link" href="<?php echo base_url('admin/viewTeacher'); ?>">
+            <i class="material-icons">Teacher</i>
+            <p>Teacher</p>
           </a>
         </li>
         <li class="nav-item   ">
@@ -23,10 +23,24 @@
             <p>Institute</p>
           </a>
         </li>
-        <li class="nav-item   ">
+        <li class="nav-item ">
           <a class="nav-link" href="<?php echo base_url('admin/viewCourse'); ?>">
             <i class="material-icons">Course</i>
             <p>Course</p>
+          </a>
+        </li>
+
+        <li class="nav-item ">
+          <a class="nav-link" href="<?php echo base_url('admin/viewCategory'); ?>">
+            <i class="material-icons">Category</i>
+            <p>Category</p>
+          </a>
+        </li>
+
+        <li class="nav-item ">
+          <a class="nav-link" href="<?php echo base_url('admin/viewQuestion'); ?>">
+            <i class="material-icons">Question</i>
+            <p>Question</p>
           </a>
         </li>
        

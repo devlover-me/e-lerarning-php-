@@ -6,7 +6,7 @@
 					<div class="card-header card-header-primary">
 						<div class="row">
 							<div class="col-md-6">
-								<h4 class="card-title mt-0">View center</h4>
+								<h4 class="card-title mt-0">View Course</h4>
 							</div>
 							<div class="col-md-6">
 								<a class="btn btn-warning" href="<?php $action='add';
@@ -35,8 +35,8 @@
                                         foreach ($menu as $key) { ?>
 									<tr>
 										<td><?php echo $i; $i++; ?></td>
-										<td><?php echo $key->courseName; ?></td>
-										<td><?php echo $key->courseFee; ?></td>
+										<td><?php echo $key->name; ?></td>
+										<td><?php echo $key->price; ?></td>
 										<td><?php $source = $key->createdAt;
 									$date = new DateTime($source);echo $date->format('d.m.Y');?></td>
 

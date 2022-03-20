@@ -17,11 +17,11 @@ class Auth extends CI_Controller
 
 	public function index()
 	{
-		if (!$this->session->userdata('adminSession')['logged_in']) {
-			return redirect('auth/login');
-		} else {
-			return redirect('admin/dashboard');
-		}
+		// if (!$this->session->userdata('adminSession')['logged_in']) {
+		// 	return redirect('auth/login');
+		// } else {
+		// 	return redirect('admin/dashboard');
+		// }
 	}
 
 	public function admin()
@@ -43,9 +43,11 @@ class Auth extends CI_Controller
          	$admindata = $this->AuthModel->getAdmindata($username);
             //    print_r($admindata);
 			// exit;
+			if ($admindata) {
 			   if($admindata[0]->userType=='admin'){
-		if ($admindata) {
+	
 				$decPassword = $this->encryption->decrypt($admindata[0]->password);
+				
             	if ($password == $decPassword) {
 					foreach ($admindata as $keydata) {
 						$name  = $keydata->userName;
@@ -63,6 +65,8 @@ class Auth extends CI_Controller
 					return redirect('admin/index');
 				} else {
 
+           
+
 					$sessionArray =  array(
 						'id' => '',
 						'name' => '',
@@ -79,12 +83,17 @@ class Auth extends CI_Controller
 					'name' => '',
 					'logged_in' => FALSE
 				);
-				$response = array('status' => 'false', 'msg' => 'Invalid userName');
+
+
+				$response = array('status' => 'false', 'msg' => 'you are not a authorised person to login as admin');
 				$this->session->set_flashdata('savemenu', $response);
 				return redirect('auth/admin');
+				
 			}
 		}else{
-			$response = array('status' => 'false', 'msg' => 'you are not a authorised person to login as admin');
+
+
+			$response = array('status' => 'false', 'msg' => 'Invalid userName');
 				$this->session->set_flashdata('savemenu', $response);
 				return redirect('auth/admin');
 		}
@@ -159,16 +168,27 @@ class Auth extends CI_Controller
 		$this->session->userdata('adminSession')['logged_in'];
 		$this->session->unset_userdata('adminSession');
 		$this->session->sess_destroy();
-		redirect('auth/admin');
+		redirect('home/index');
 	}
 
 	///==============================center pannel======================================
 
-	public function center()
+	public function user()
 	{
-		$this->load->view('center/centerlogin');
+		$this->load->view('home/userlogin');
 	}
-	public function center_login()
+
+	public function user_singup()
+	{
+		$this->load->view('home/usersingup');
+	}
+
+ 
+
+
+
+
+	public function user_login()
 	{
 		$this->form_validation->set_rules('username', 'Username', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required');
@@ -181,16 +201,16 @@ class Auth extends CI_Controller
 
 
 
-			$centerdata = $this->AuthModel->getCenterdata($username);
-			// print_r($centerdata);
+			$userdata = $this->AuthModel->getuserdata($username);
+			// print_r($userdata);
 			// exit;
-			   if($centerdata[0]->userType=='center'){
+			   if($userdata[0]->userType=='user'){
 
-			if ($centerdata) {
-				$decPassword = $this->encryption->decrypt($centerdata[0]->password);
+			if ($userdata) {
+				$decPassword = $this->encryption->decrypt($userdata[0]->password);
 
 				if ($password == $decPassword) {
-					foreach ($centerdata as $keydata) {
+					foreach ($userdata as $keydata) {
 						$wallet  = $keydata->wallet;
 						$id = $keydata->userId;
 					}
@@ -202,9 +222,9 @@ class Auth extends CI_Controller
 						'logged_in' => TRUE
 					);
 
-					$this->session->set_userdata('centerSession', $sessionArray);
+					$this->session->set_userdata('userSession', $sessionArray);
 
-					return redirect('center/index');
+					return redirect('user/index');
 				} else {
 
 					$sessionArray =  array(
@@ -214,7 +234,7 @@ class Auth extends CI_Controller
 					);
 					$response = array('status' => 'false', 'msg' => 'Password does not match ');
 					$this->session->set_flashdata('toaster', $response);
-					return redirect('auth/center1');
+					return redirect('auth/user1');
 				}
 			} else {
 
@@ -225,22 +245,22 @@ class Auth extends CI_Controller
 				);
 				$response = array('status' => 'false', 'msg' => 'invalid user');
 				$this->session->set_flashdata('toaster', $response);
-				return redirect('auth/center');
+				return redirect('auth/user');
 			}
 		}else{
-			$response = array('status' => 'false', 'msg' => 'You are not authorised to login as a center');
+			$response = array('status' => 'false', 'msg' => 'You are not authorised to login as a user');
 			$this->session->set_flashdata('toaster', $response);
-			return redirect('auth/center');
+			return redirect('auth/user');
 
 		}
 		} else {
 			$response = array('status' => 'false', 'msg' => validation_errors());
 			$this->session->set_flashdata('toaster', $response);
-			return redirect('auth/center');
+			return redirect('auth/user');
 		}
 	}
 
-	public function changeCenterPassword()
+	public function changeuserPassword()
 	{
 		$this->form_validation->set_rules('oldpassword', 'OldPassword', 'required');
 		$this->form_validation->set_rules('newpassword', 'NewPassword', 'required');
@@ -249,7 +269,7 @@ class Auth extends CI_Controller
 			$oldpass = $this->input->post('oldpassword');
 			$password = $this->input->post('newpassword');
 
-			$uid  = $this->session->userdata('centerSession')['id'];
+			$uid  = $this->session->userdata('userSession')['id'];
 
 			$admindata = $this->AuthModel->getAdmin($uid);
 
@@ -282,13 +302,13 @@ class Auth extends CI_Controller
 	
 	
 	// logout
-	public function center_logout()
+	public function user_logout()
 	{
 
-		$this->session->userdata('centerSession')['logged_in'];
-		$this->session->unset_userdata('centerSession');
+		$this->session->userdata('userSession')['logged_in'];
+		$this->session->unset_userdata('userSession');
 		$this->session->sess_destroy();
-		redirect('auth/center');
+		redirect('home/index');
 	}
 
 //================================================student=======================

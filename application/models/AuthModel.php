@@ -13,9 +13,9 @@ class AuthModel extends CI_Model
 	}
 
 
-	public function getCenterdata($username)
+	public function getuserdata($username)
 	{
-		$checkpassword = $this->db->where(["userName" => $username, "status" => '1'])->get('logins');
+		$checkpassword = $this->db->where('userName', $username)->get('logins');
 		if ($checkpassword->num_rows() > 0) {
 			return $checkpassword->result();
 		} else {
@@ -47,22 +47,28 @@ class AuthModel extends CI_Model
 			return false;
 		}
 	}
-	//============================center pannel==================
-	public function updateCenterPassword($password, $uid)
+	//============================home pannel==================
+	public function updatehomePassword($password, $uid)
 	{
-		return	$this->db->where('id', $uid)->update("center", array('password' => $password));
+		return	$this->db->where('id', $uid)->update("home", array('password' => $password));
 	}
 
 
-	public function getCenter($uid)
+	public function gethome($uid)
 	{
-		$data = $this->db->where('id', $uid)->get('center');
+		$data = $this->db->where('id', $uid)->get('home');
 		if ($data->num_rows() > 0) {
 			return $data->result();
 		} else {
 			return false;
 		}
 	}
+
+
+
+
+
+
 	//=================================student============================
 	public function getStudentPassword($username)
 	{

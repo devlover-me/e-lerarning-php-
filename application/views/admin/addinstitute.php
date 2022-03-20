@@ -39,7 +39,7 @@
 							<label for="exampleInputPassword1">Institute Name</label>
 							<input type="text" name="name" class="form-control" id="" value="<?php 
 					 if(form_error('name')){ echo set_value('name');}else{
-						if($action=='edit'){ echo $data[0]->instituteName;} else{		
+						if($action=='edit'){ echo $data[0]->name;} else{		
 							echo set_value('name');   } } ?>" required>
 
 
@@ -48,26 +48,26 @@
 						</div>
 						<div class="form-group">
 
-							<label for="exampleInputPassword1">phaseYear</label>
-							<input type="text" name="year" class="form-control" id="" value="<?php 
-					 if(form_error('year')){echo set_value('year');}else{
-						if($action=='edit'){ echo $data[0]->phaseYear;} else{		 
-							echo set_value('year');	 } } ?>" required>
+							<label for="exampleInputPassword1">address</label>
+							<input type="text" name="address" class="form-control" id="" value="<?php 
+					 if(form_error('address')){echo set_value('address');}else{
+						if($action=='edit'){ echo $data[0]->address;} else{		 
+							echo set_value('address');	 } } ?>" required>
 
 
-							<?php echo form_error('year','<div class="error" style="color:red;">', '</div>'); ?>
+							<?php echo form_error('address','<div class="error" style="color:red;">', '</div>'); ?>
 						</div>
-						<div class="form-group">
+						<!-- <div class="form-group">
 
 							<label for="exampleInputPassword1">PhaseMonth</label>
 							<input type="text" name="month" class="form-control" id="" value="<?php 
-					 if(form_error('month')){ echo set_value('month');}else{
-						if($action=='edit'){echo $data[0]->phaseMonth;} else{ 		
-							echo set_value('month');   } } ?>" required>
+					//  if(form_error('month')){ echo set_value('month');}else{
+					// 	if($action=='edit'){echo $data[0]->phaseMonth;} else{ 		
+					// 		echo set_value('month');   } } ?>" required>
 
 
 							<?php echo form_error('month','<div class="error" style="color:red;">', '</div>'); ?>
-						</div>
+						</div> -->
 
 
 
